@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Недра Новой России — Виртуальный Музей</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080807;
+  --bg2: #0f0f0d;
+  --bg3: #161612;
+  --bg4: #1e1e19;
+  --gold: #C8A951;
+  --gold2: #E2C47A;
+  --copper: #A0724A;
+  --text: #EDE8DF;
+  --muted: #7A766C;
+  --dim: #3D3A34;
+  --r: 4px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 56px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem;
+  background: rgba(8,8,7,0.88); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(200,169,81,0.12);
+}
+.nav-brand { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); }
+.nav-links { display:flex; gap:0; list-style:none; }
+.nav-links a { padding:.4rem .9rem; font-size:12px; color:var(--muted); text-decoration:none; transition:color .25s; border-radius:20px; letter-spacing:.04em; }
+.nav-links a:hover { color:var(--text); }
+.nav-cta { font-size:11px; font-weight:500; letter-spacing:.08em; padding:.4rem 1.1rem; border:1px solid var(--dim); color:var(--gold2); border-radius:20px; text-decoration:none; transition:all .25s; }
+.nav-cta:hover { border-color:var(--gold); background:rgba(200,169,81,.08); }
+
+.hero { min-height:100vh; position:relative; display:flex; flex-direction:column; justify-content:flex-end; padding:0 0 5rem; overflow:hidden; }
+.hero-img { position:absolute; inset:0; background:url('https://images.unsplash.com/photo-1487700160041-babef9c3cb55?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat; }
+.hero-img::after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(8,8,7,1) 0%, rgba(8,8,7,.7) 40%, rgba(8,8,7,.15) 100%); }
+.hero-body { position:relative; z-index:2; max-width:1200px; margin:0 auto; padding:0 2.5rem; width:100%; }
+.hero-tag { display:inline-flex; align-items:center; gap:.5rem; font-size:11px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); background:rgba(200,169,81,.1); border:1px solid rgba(200,169,81,.2); padding:.35rem .85rem; border-radius:20px; margin-bottom:2rem; opacity:0; animation:up .7s .1s ease forwards; }
+.hero-title { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(3.5rem,9vw,8rem); line-height:.92; letter-spacing:-.03em; margin-bottom:1.5rem; opacity:0; animation:up .7s .25s ease forwards; }
+.hero-title em { font-style:italic; font-family:'Instrument Serif',serif; color:var(--gold2); }
+.hero-sub { max-width:560px; font-size:1rem; color:var(--muted); line-height:1.7; margin-bottom:2.5rem; opacity:0; animation:up .7s .4s ease forwards; }
+.hero-badges { display:flex; gap:1.5rem; flex-wrap:wrap; opacity:0; animation:up .7s .55s ease forwards; }
+.badge { display:flex; flex-direction:column; padding:.75rem 1.5rem; background:rgba(255,255,255,.04); border:1px solid var(--dim); border-radius:var(--r); }
+.badge-val { font-family:'Syne',sans-serif; font-size:1.8rem; font-weight:800; color:var(--gold); line-height:1; }
+.badge-lbl { font-size:11px; color:var(--muted); letter-spacing:.08em; margin-top:.25rem; }
+
+.sec { position:relative; z-index:1; }
+.wrap { max-width:1200px; margin:0 auto; padding:6rem 2.5rem; }
+.label { font-size:11px; font-weight:500; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); margin-bottom:1.5rem; display:flex; align-items:center; gap:.75rem; }
+.label::before { content:''; width:24px; height:1px; background:var(--gold); flex-shrink:0; }
+.sec-title { font-family:'Syne',sans-serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; line-height:1.1; letter-spacing:-.02em; }
+.sec-title em { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; color:var(--gold2); }
+
+#about { background:var(--bg2); border-top:1px solid var(--dim); }
+.about-grid { display:grid; grid-template-columns:1fr 1.1fr; gap:5rem; align-items:start; }
+.about-text p { color:var(--muted); font-size:.95rem; line-height:1.8; margin-bottom:1.1rem; }
+.about-text strong { color:var(--text); }
+.passport { background:var(--bg3); border:1px solid var(--dim); border-radius:8px; overflow:hidden; }
+.passport-head { padding:1rem 1.5rem; background:rgba(200,169,81,.06); border-bottom:1px solid var(--dim); font-size:10px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+.passport-row { display:flex; gap:1rem; padding:1rem 1.5rem; border-bottom:1px solid rgba(255,255,255,.04); }
+.passport-row:last-child { border-bottom:none; }
+.pk { font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); min-width:100px; padding-top:2px; }
+.pv { font-size:.85rem; color:var(--text); line-height:1.5; }
+
+.halls-tabs { background:var(--bg3); border-top:1px solid var(--dim); border-bottom:1px solid var(--dim); position:sticky; top:56px; z-index:100; }
+.halls-tabs-inner { max-width:1200px; margin:0 auto; padding:0 2.5rem; display:flex; }
+.htab { flex:1; padding:1.2rem .5rem; text-align:center; text-decoration:none; color:var(--muted); font-family:'Syne',sans-serif; font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; border-bottom:2px solid transparent; transition:all .25s; display:flex; flex-direction:column; align-items:center; gap:.25rem; }
+.htab:hover { color:var(--gold2); border-bottom-color:rgba(200,169,81,.3); }
+.htab-n { font-family:'Instrument Serif',serif; font-size:1.4rem; font-style:italic; color:var(--dim); transition:color .25s; }
+.htab:hover .htab-n { color:var(--gold); }
+
+.hall { border-top:1px solid rgba(255,255,255,.04); }
+.hall:nth-child(even) { background:var(--bg2); }
+.hall-hero { height:420px; position:relative; overflow:hidden; }
+.hall-hero img { width:100%; height:100%; object-fit:cover; display:block; }
+.hall-hero-overlay { position:absolute; inset:0; background:linear-gradient(90deg, rgba(8,8,7,.9) 0%, rgba(8,8,7,.4) 60%, transparent 100%); display:flex; align-items:flex-end; padding:3rem 3.5rem; }
+.hall-period { font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); margin-bottom:.5rem; }
+.hall-title { font-family:'Syne',sans-serif; font-size:clamp(1.6rem,3.5vw,2.6rem); font-weight:800; line-height:1.1; letter-spacing:-.02em; }
+.hall-title em { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; color:var(--gold2); }
+
+.guide { position:relative; padding:2rem 2.5rem; background:var(--bg3); border-radius:8px; border-left:2px solid var(--gold); margin:2.5rem 0; }
+.guide::before { content:'🎧  ТЕКСТ ЭКСКУРСОВОДА'; display:block; font-size:10px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); margin-bottom:1rem; }
+.guide p { color:var(--muted); font-size:.92rem; line-height:1.85; margin-bottom:.9rem; }
+.guide p:last-child { margin-bottom:0; }
+
+.subtopics { margin:2.5rem 0; }
+.st { display:grid; grid-template-columns:2.5rem 1fr; gap:1.5rem; padding:1.75rem 0; border-bottom:1px solid rgba(255,255,255,.05); }
+.st:last-child { border-bottom:none; }
+.st-n { font-family:'Instrument Serif',serif; font-size:1.6rem; font-style:italic; color:var(--gold); opacity:.4; line-height:1; }
+.st h4 { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--text); margin-bottom:.5rem; }
+.st p { font-size:.88rem; color:var(--muted); line-height:1.75; }
+
+.photos-title { font-size:11px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin:3rem 0 1rem; }
+.photo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:2rem; }
+.photo-grid.g2 { grid-template-columns:2fr 1fr; }
+.photo-grid.g4 { grid-template-columns:repeat(4,1fr); }
+.photo-card { position:relative; border-radius:6px; overflow:hidden; aspect-ratio:4/3; }
+.photo-card.tall { aspect-ratio:3/4; }
+.photo-card.wide { aspect-ratio:16/7; grid-column:span 3; }
+.photo-card img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s ease; }
+.photo-card:hover img { transform:scale(1.04); }
+.photo-cap { position:absolute; bottom:0; left:0; right:0; padding:1.5rem 1rem .75rem; background:linear-gradient(to top,rgba(0,0,0,.75),transparent); font-size:11px; color:rgba(255,255,255,.7); letter-spacing:.04em; }
+
+.stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--dim); border-radius:8px; overflow:hidden; margin:2.5rem 0; }
+.stat-box { background:var(--bg3); padding:1.75rem 1.25rem; text-align:center; }
+.stat-v { font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; color:var(--gold); display:block; }
+.stat-l { font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-top:.2rem; }
+
+.timeline { position:relative; padding-left:1.5rem; margin:2rem 0; }
+.timeline::before { content:''; position:absolute; left:0; top:8px; bottom:8px; width:1px; background:linear-gradient(to bottom,var(--gold),transparent); }
+.tl-item { position:relative; padding:0 0 2rem 2rem; }
+.tl-item::before { content:''; position:absolute; left:-5px; top:8px; width:10px; height:10px; border-radius:50%; background:var(--gold); border:2px solid var(--bg); box-shadow:0 0 0 3px rgba(200,169,81,.15); }
+.tl-y { font-size:11px; letter-spacing:.15em; color:var(--gold); margin-bottom:.25rem; font-weight:500; }
+.tl-e { font-family:'Syne',sans-serif; font-size:1rem; font-weight:700; color:var(--text); margin-bottom:.25rem; }
+.tl-n { font-size:.85rem; color:var(--muted); line-height:1.65; }
+
+.reports-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:2rem 0; }
+.report-card { background:var(--bg3); border:1px solid var(--dim); border-radius:8px; padding:1.5rem; text-decoration:none; color:inherit; transition:all .25s; display:flex; flex-direction:column; gap:.5rem; }
+.report-card:hover { border-color:rgba(200,169,81,.4); background:var(--bg4); transform:translateY(-3px); }
+.rc-type { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+.rc-title { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; color:var(--text); line-height:1.3; }
+.rc-desc { font-size:12px; color:var(--muted); line-height:1.6; flex:1; }
+.rc-link { display:inline-flex; align-items:center; gap:.4rem; font-size:11px; font-weight:500; letter-spacing:.08em; color:var(--gold2); margin-top:.5rem; }
+.rc-link::after { content:'→'; }
+
+blockquote { border-left:2px solid rgba(200,169,81,.3); padding:1rem 1.5rem; margin:2rem 0; font-family:'Instrument Serif',serif; font-style:italic; font-size:1.05rem; color:var(--muted); line-height:1.7; }
+blockquote cite { display:block; margin-top:.5rem; font-style:normal; font-size:11px; font-family:'Inter',sans-serif; letter-spacing:.1em; color:var(--dim); }
+
+.task { background:var(--bg3); border:1px solid rgba(160,114,74,.25); border-radius:8px; padding:2rem; margin:3rem 0 0; }
+.task-label { font-size:10px; font-weight:500; letter-spacing:.25em; text-transform:uppercase; color:var(--copper); margin-bottom:1.25rem; display:flex; align-items:center; gap:.5rem; }
+.task-label::before { content:'◆'; font-size:8px; }
+.task h4 { font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:700; color:var(--text); margin-bottom:.75rem; }
+.task > p { font-size:.9rem; color:var(--muted); margin-bottom:1.25rem; line-height:1.65; }
+.task-opts { display:flex; flex-direction:column; gap:.6rem; }
+.topt { display:flex; align-items:flex-start; gap:.75rem; padding:.85rem 1rem; border-radius:6px; background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.06); cursor:pointer; transition:all .2s; font-size:.88rem; color:var(--muted); }
+.topt:hover { background:rgba(200,169,81,.05); border-color:rgba(200,169,81,.2); color:var(--text); }
+.topt.sel { background:rgba(200,169,81,.1); border-color:rgba(200,169,81,.35); color:var(--text); }
+.topt-dot { width:18px; height:18px; border-radius:50%; border:1.5px solid var(--dim); flex-shrink:0; margin-top:1px; transition:all .2s; display:flex; align-items:center; justify-content:center; font-size:10px; }
+.topt.sel .topt-dot { background:var(--gold); border-color:var(--gold); color:var(--bg); }
+.topt.sel .topt-dot::after { content:'✓'; font-weight:bold; }
+.task-actions { display:flex; align-items:center; gap:1rem; margin-top:1.25rem; flex-wrap:wrap; }
+.task-btn { padding:.65rem 1.5rem; border:1px solid var(--gold); background:transparent; color:var(--gold); font-family:'Syne',sans-serif; font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; border-radius:4px; cursor:pointer; transition:all .25s; }
+.task-btn:hover { background:var(--gold); color:var(--bg); }
+.task-reset { background:none; border:none; font-size:12px; color:var(--dim); cursor:pointer; transition:color .2s; }
+.task-reset:hover { color:var(--muted); }
+.task-fb { margin-top:1rem; padding:1rem 1.25rem; border-radius:6px; font-size:.88rem; line-height:1.65; display:none; }
+.task-fb.show { display:block; }
+.task-fb.ok { background:rgba(200,169,81,.08); border-left:3px solid var(--gold); color:var(--muted); }
+.task-fb.err { background:rgba(180,60,60,.08); border-left:3px solid rgba(180,60,60,.5); color:#aa7070; }
+.task-tries { font-size:11px; color:var(--dim); }
+
+#sources { background:var(--bg2); border-top:1px solid var(--dim); }
+.src-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3rem; margin-top:3rem; }
+.src-group h4 { font-family:'Syne',sans-serif; font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); margin-bottom:1rem; padding-bottom:.75rem; border-bottom:1px solid var(--dim); }
+.src-list { list-style:none; display:flex; flex-direction:column; gap:.65rem; counter-reset:s; }
+.src-list li { counter-increment:s; padding-left:1.5rem; position:relative; font-size:.8rem; color:var(--muted); line-height:1.55; }
+.src-list li::before { content:counter(s); position:absolute; left:0; color:var(--gold); font-family:'Syne',sans-serif; font-size:10px; font-weight:700; top:2px; }
+.src-list a { color:var(--gold2); text-decoration:none; border-bottom:1px dashed rgba(200,169,81,.3); }
+.src-list a:hover { border-bottom-color:var(--gold); }
+
+footer { padding:3.5rem 2.5rem; border-top:1px solid var(--dim); display:flex; align-items:center; justify-content:space-between; }
+.ft-l { font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:800; color:var(--gold); }
+.ft-r { font-size:11px; color:var(--dim); text-align:right; line-height:1.7; }
+
+@keyframes up { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } }
+.r { opacity:0; transform:translateY(18px); transition:opacity .65s ease, transform .65s ease; }
+.r.on { opacity:1; transform:none; }
+
+@media(max-width:900px) {
+  .about-grid,.src-grid { grid-template-columns:1fr; gap:2rem; }
+  .photo-grid { grid-template-columns:1fr 1fr; }
+  .photo-grid.g4 { grid-template-columns:1fr 1fr; }
+  .reports-grid { grid-template-columns:1fr 1fr; }
+  .stats { grid-template-columns:1fr 1fr; }
+  .hall-hero { height:280px; }
+  .photo-card.wide { grid-column:span 2; }
+}
+@media(max-width:600px) {
+  .photo-grid,.photo-grid.g2 { grid-template-columns:1fr; }
+  .photo-card.wide { grid-column:span 1; }
+  .reports-grid { grid-template-columns:1fr; }
+  .nav-links { display:none; }
+  .hero-badges { gap:.75rem; }
+  footer { flex-direction:column; gap:1rem; text-align:center; }
+  .ft-r { text-align:center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Недра Новой России</div>
+  <ul class="nav-links">
+    <li><a href="#about">О музее</a></li>
+    <li><a href="#hall1">Зал I</a></li>
+    <li><a href="#hall2">Зал II</a></li>
+    <li><a href="#hall3">Зал III</a></li>
+    <li><a href="#sources">Источники</a></li>
+  </ul>
+  <a href="#hall1" class="nav-cta">Начать экскурсию</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-body">
+    <span class="hero-tag">Виртуальный Музей · РФ 1991–2022</span>
+    <h1 class="hero-title">Недра<br><em>Новой</em><br>России</h1>
+    <p class="hero-sub">Горнодобывающая промышленность как зеркало трансформации российской экономики. История отрасли через призму компании «Селигдар».</p>
+    <div class="hero-badges">
+      <div class="badge"><span class="badge-val">3</span><span class="badge-lbl">Экскурсии</span></div>
+      <div class="badge"><span class="badge-val">7,55т</span><span class="badge-lbl">Золота (2022)</span></div>
+      <div class="badge"><span class="badge-val">1994</span><span class="badge-lbl">Год основания</span></div>
+      <div class="badge"><span class="badge-val">3 900</span><span class="badge-lbl">Сотрудников</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="sec" style="background:var(--bg2);border-top:1px solid var(--dim)">
+  <div class="wrap">
+    <p class="label">О музее</p>
+    <div class="about-grid r">
+      <div class="about-text">
+        <h2 class="sec-title" style="margin-bottom:1.5rem">Зачем нужен<br><em>этот музей?</em></h2>
+        <p>Горнодобывающая отрасль — один из ключевых экономических столпов России. Именно добыча золота и стратегических металлов позволила стране пережить хаос 1990-х и выйти на мировые сырьевые рынки.</p>
+        <p>За производственными показателями и биржевыми котировками стоят живые истории: <strong>люди, превратившие советские артели в публичные корпорации</strong>; регионы, чья судьба неразрывно связана с месторождениями; корпоративная культура в условиях вечной мерзлоты.</p>
+        <p>Музей рассказывает о трансформации отрасли через историю <strong>ПАО «Селигдар»</strong> — ведущего производителя золота и олова, основанного в Якутии в 1994 году.</p>
+      </div>
+      <div class="passport">
+        <div class="passport-head">Паспорт музея</div>
+        <div class="passport-row"><span class="pk">Период</span><span class="pv">1991–2022 · Современная Российская Федерация</span></div>
+        <div class="passport-row"><span class="pk">Тематика</span><span class="pv">Горнодобывающая промышленность: экономика, люди, корпоративная культура</span></div>
+        <div class="passport-row"><span class="pk">Структура</span><span class="pv">3 экскурсионные программы (Залы I–III)</span></div>
+        <div class="passport-row"><span class="pk">Объект</span><span class="pv">ПАО «Селигдар», г. Алдан, Республика Саха (Якутия)</span></div>
+        <div class="passport-row"><span class="pk">Миссия</span><span class="pv">Осмыслить историю горнодобывающей отрасли как часть истории России 1991–2022 гг.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="halls-tabs">
+  <div class="halls-tabs-inner">
+    <a href="#hall1" class="htab"><span class="htab-n">I</span>Под новым флагом</a>
+    <a href="#hall2" class="htab"><span class="htab-n">II</span>Путь Селигдара</a>
+    <a href="#hall3" class="htab"><span class="htab-n">III</span>Люди недр</a>
+  </div>
+</div>
+
+<!-- HALL 1 -->
+<section id="hall1" class="hall sec">
+  <div class="hall-hero">
+    <img src="https://images.unsplash.com/photo-1548407260-da850faa41e3?auto=format&fit=crop&w=1400&q=80" alt="Горнодобывающее производство">
+    <div class="hall-hero-overlay">
+      <div>
+        <p class="hall-period">Экскурсия I · 1991–1999</p>
+        <h2 class="hall-title">Под новым <em>флагом</em></h2>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="guide r">
+      <p>Добро пожаловать в первый зал. Декабрь 1991 года — Советский Союз прекратил существование. Вместе с ним рухнула вся система централизованного управления горной промышленностью. Сотни предприятий от Колымы до Якутии оказались предоставлены сами себе.</p>
+      <p>В СССР золотодобыча была государственной тайной — цифры производства засекречивались, предприятия финансировались из центра. К 1991 году Россия добывала около 150 тонн золота в год. Первая половина 1990-х стала временем хаоса и невероятных возможностей.</p>
+      <p>Приватизация превратила государственные предприятия в акционерные общества. Кто-то из директоров умело воспользовался этим — кто-то потерял всё. В этом зале мы рассматриваем ключевые факторы, определившие судьбу отрасли.</p>
+    </div>
+
+    <p class="photos-title r">▸ Фотогалерея зала</p>
+    <div class="photo-grid r">
+      <div class="photo-card wide">
+        <img src="https://images.unsplash.com/photo-1509564438738-c9a7ce9aeec8?auto=format&fit=crop&w=1400&q=80" alt="Горный карьер">
+        <span class="photo-cap">Открытая разработка золотороссыпного месторождения — основной метод добычи в 1990-е</span>
+      </div>
+      <div class="photo-card">
+        <img src="https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=600&q=80" alt="Золотые слитки">
+        <span class="photo-cap">Золотые слитки — стратегический актив новой России</span>
+      </div>
+      <div class="photo-card">
+        <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=600&q=80" alt="Горнорабочий">
+        <span class="photo-cap">Горнорабочий на производственном объекте</span>
+      </div>
+      <div class="photo-card">
+        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80" alt="Промышленное оборудование">
+        <span class="photo-cap">Тяжёлая техника на горнодобывающем предприятии</span>
+      </div>
+    </div>
+
+    <div class="subtopics r">
+      <div class="st"><span class="st-n">1</span><div><h4>Советское наследие: что досталось новой России</h4><p>К 1991 году горнодобывающая промышленность РСФСР включала тысячи предприятий. Вся цепочка — от геологоразведки до сбыта — была централизована. Распад СССР означал мгновенное прекращение финансирования, остановку сбыта, бегство кадров.</p></div></div>
+      <div class="st"><span class="st-n">2</span><div><h4>Приватизация и «дикий капитализм»</h4><p>По ваучерной схеме крупнейшие объединения превращались в акционерные общества. Значительная часть активов переходила к менеджменту. Параллельно возникали небольшие частные артели — среди них основанный в 1994 году «Селигдар».</p></div></div>
+      <div class="st"><span class="st-n">3</span><div><h4>Роль золота в выживании страны</h4><p>В условиях гиперинфляции золото стало стратегическим ресурсом. Центральный банк использовал золотые резервы для стабилизации курса. В регионах золотодобытчики расплачивались слитками за оборудование и электроэнергию.</p></div></div>
+      <div class="st"><span class="st-n">4</span><div><h4>Первые частные компании: хаос становится бизнесом</h4><p>К концу 1990-х выжили сильнейшие. Кризис 1998 года, как ни парадоксально, дал импульс: девальвация рубля снизила рублёвую себестоимость добычи при сохранении долларовых цен на металл.</p></div></div>
+    </div>
+
+    <div class="stats r">
+      <div class="stat-box"><span class="stat-v">~150т</span><span class="stat-l">золота в год (1991)</span></div>
+      <div class="stat-box"><span class="stat-v">≈40%</span><span class="stat-l">падение добычи к 1998</span></div>
+      <div class="stat-box"><span class="stat-v">1994</span><span class="stat-l">год основания Селигдара</span></div>
+      <div class="stat-box"><span class="stat-v">Якутия</span><span class="stat-l">топ-3 региона добычи</span></div>
+    </div>
+
+    <blockquote>«В 1992–1993 годах на некоторых приисках зарплату выдавали золотым песком. Люди несли его в ювелирные магазины и меняли на продукты.»<cite>— Из воспоминаний горнорабочего, Магаданская область</cite></blockquote>
+
+    <div class="task r">
+      <p class="task-label">Задание для посетителя</p>
+      <h4>Советская vs. постсоветская модель: что изменилось?</h4>
+      <p>Представьте, что вы — директор горнодобывающего предприятия в 1992 году. Главное изменение, с которым вы столкнулись:</p>
+      <div class="task-opts" id="t1-opts">
+        <div class="topt" onclick="pick('t1',this,'a')"><div class="topt-dot"></div><span>а) Отсутствие государственного финансирования и необходимость самостоятельно искать сбыт продукции</span></div>
+        <div class="topt" onclick="pick('t1',this,'b')"><div class="topt-dot"></div><span>б) Повышение налогов на добычу полезных ископаемых федеральным правительством</span></div>
+        <div class="topt" onclick="pick('t1',this,'c')"><div class="topt-dot"></div><span>в) Конкуренция со стороны иностранных горнодобывающих компаний</span></div>
+      </div>
+      <div class="task-actions">
+        <button class="task-btn" onclick="check('t1','a','Верно! Главным вызовом стал именно разрыв государственных цепочек финансирования и сбыта. Предприятия, привыкшие работать в плановой системе, столкнулись с необходимостью самостоятельно выходить на рынок — у многих это не получилось.')">Проверить</button>
+        <button class="task-reset" onclick="reset('t1')">Сбросить</button>
+        <span class="task-tries" id="t1-tries"></span>
+      </div>
+      <div class="task-fb" id="t1-fb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- HALL 2 -->
+<section id="hall2" class="hall sec" style="background:var(--bg2)">
+  <div class="hall-hero">
+    <img src="https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?auto=format&fit=crop&w=1400&q=80" alt="Золотодобыча">
+    <div class="hall-hero-overlay">
+      <div>
+        <p class="hall-period">Экскурсия II · 1994–2022</p>
+        <h2 class="hall-title">Путь <em>Селигдара</em></h2>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="guide r">
+      <p>Второй зал посвящён истории «Селигдара». Алдан — небольшой город в Якутии — с советских времён являлся центром золотодобычи в регионе. Именно здесь в 1994 году возник «Селигдар».</p>
+      <p>За три десятилетия компания прошла путь от небольшой артели, добывавшей россыпное золото, до диверсифицированного холдинга с производством рудного золота и оловянного концентрата. В 2011 году «Селигдар» вышел на Московскую биржу.</p>
+      <p>Особого внимания заслуживает корпоративный артбук — редкое издание, не находящееся в открытом доступе. Анализируя его, мы видим, как компания осмысляет свою идентичность и конструирует образ своей истории.</p>
+    </div>
+
+    <div class="timeline r">
+      <div class="tl-item"><div class="tl-y">1994</div><div class="tl-e">Основание ОАО «Селигдар»</div><div class="tl-n">г. Алдан, Республика Саха (Якутия). Основной вид деятельности — добыча россыпного золота в Алданском районе.</div></div>
+      <div class="tl-item"><div class="tl-y">1998–2000</div><div class="tl-e">Кризис и реструктуризация</div><div class="tl-n">Дефолт 1998 года ударил по отрасли. «Селигдар» сохранил активы и приступил к освоению рудных месторождений. Девальвация рубля снизила себестоимость добычи.</div></div>
+      <div class="tl-item"><div class="tl-y">2000-е</div><div class="tl-e">Рост под «нефтяным ветром»</div><div class="tl-n">Стабилизация и рост мировых цен на сырьё дали импульс отрасли. «Селигдар» расширяет производство и начинает диверсификацию в добычу олова.</div></div>
+      <div class="tl-item"><div class="tl-y">2011</div><div class="tl-e">Выход на Московскую биржу (IPO)</div><div class="tl-n">Размещение акций на ММВБ. Привлечённые средства направлены на разработку золоторудного месторождения Хвойное.</div></div>
+      <div class="tl-item"><div class="tl-y">2014–2022</div><div class="tl-e">Санкции и адаптация</div><div class="tl-n">Компания переориентировалась на внутренний рынок. К 2022 году: производство 7,55 т золота и 2,9 тыс. т олова. Выручка — 35 млрд руб.</div></div>
+    </div>
+
+    <p class="photos-title r">▸ Производство и природа Якутии</p>
+    <div class="photo-grid g2 r" style="gap:12px">
+      <div class="photo-card" style="aspect-ratio:16/9">
+        <img src="https://images.unsplash.com/photo-1565108586886-b0d50b45e01f?auto=format&fit=crop&w=900&q=80" alt="Горнодобывающее предприятие">
+        <span class="photo-cap">Обогатительная фабрика — сердце золотодобывающего производства</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="photo-card" style="flex:1">
+          <img src="https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=600&q=80" alt="Природа Якутии">
+          <span class="photo-cap">Якутия: тайга и вечная мерзлота</span>
+        </div>
+        <div class="photo-card" style="flex:1">
+          <img src="https://images.unsplash.com/photo-1542401886-65d6c61db217?auto=format&fit=crop&w=600&q=80" alt="Горы Якутии">
+          <span class="photo-cap">Горные хребты — место основных месторождений</span>
+        </div>
+      </div>
+    </div>
+    <div class="photo-grid g4 r" style="margin-top:12px">
+      <div class="photo-card"><img src="https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?auto=format&fit=crop&w=400&q=80" alt="Зима в Якутии"><span class="photo-cap">Зима: до −50°C</span></div>
+      <div class="photo-card"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&q=80" alt="Горный ландшафт"><span class="photo-cap">Алданское нагорье</span></div>
+      <div class="photo-card"><img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=400&q=80" alt="Горняк"><span class="photo-cap">Горняк на производстве</span></div>
+      <div class="photo-card"><img src="https://images.unsplash.com/photo-1429772011165-0c2e054367b8?auto=format&fit=crop&w=400&q=80" alt="Рудное золото"><span class="photo-cap">Рудное золото</span></div>
+    </div>
+
+    <div class="stats r">
+      <div class="stat-box"><span class="stat-v">7,55т</span><span class="stat-l">золота (2022)</span></div>
+      <div class="stat-box"><span class="stat-v">2,9тт</span><span class="stat-l">олова (2022)</span></div>
+      <div class="stat-box"><span class="stat-v">35 млрд</span><span class="stat-l">выручка (2022, руб.)</span></div>
+      <div class="stat-box"><span class="stat-v">272т</span><span class="stat-l">запасы золота</span></div>
+    </div>
+
+    <p class="label" style="margin-top:3rem">Документальная база</p>
+    <h3 class="sec-title" style="font-size:1.5rem;margin-bottom:.5rem">Годовые отчёты <em>Селигдара</em></h3>
+    <p style="color:var(--muted);font-size:.9rem;margin-bottom:1.5rem">Компания публикует отчёты в открытом доступе на официальном сайте.</p>
+    <div class="reports-grid r">
+      <a href="http://seligdar.ru/upload/investors/results-and-reports/Seligdar_2022_Annual_Report_rus/" target="_blank" class="report-card">
+        <span class="rc-type">Годовой отчёт</span>
+        <span class="rc-title">Годовой отчёт 2022</span>
+        <span class="rc-desc">7,55 т золота, выручка 35 млрд руб., запасы 272 т Au. Интерактивная версия.</span>
+        <span class="rc-link">Открыть отчёт</span>
+      </a>
+      <a href="https://seligdar.ru/investors/results-and-reports/" target="_blank" class="report-card">
+        <span class="rc-type">Архив отчётов</span>
+        <span class="rc-title">Отчёты 2019–2022</span>
+        <span class="rc-desc">Годовые и квартальные отчёты, МСФО и РСБУ, результаты деятельности за все периоды.</span>
+        <span class="rc-link">Перейти в архив</span>
+      </a>
+      <a href="http://seligdar.ru/investors/disclosure/reports/" target="_blank" class="report-card">
+        <span class="rc-type">Раскрытие информации</span>
+        <span class="rc-title">Официальная отчётность</span>
+        <span class="rc-desc">Ежеквартальные отчёты эмитента, бухгалтерская и консолидированная финансовая отчётность.</span>
+        <span class="rc-link">Смотреть документы</span>
+      </a>
+    </div>
+
+    <div class="task r">
+      <p class="task-label">Задание для посетителя</p>
+      <h4>Артбук как исторический источник</h4>
+      <p>Изучите корпоративный артбук «Селигдара». Как компания выстраивает свою идентичность?</p>
+      <div class="task-opts" id="t2-opts">
+        <div class="topt" onclick="pick('t2',this,'a')"><div class="topt-dot"></div><span>а) Компания представляет себя как наследника советской трудовой традиции, делая акцент на коллективизме и героике труда</span></div>
+        <div class="topt" onclick="pick('t2',this,'b')"><div class="topt-dot"></div><span>б) Компания выстраивает образ современной технологичной корпорации, органично вписанной в якутский природный и культурный контекст</span></div>
+        <div class="topt" onclick="pick('t2',this,'c')"><div class="topt-dot"></div><span>в) Издание фокусируется исключительно на финансовых достижениях и производственных показателях</span></div>
+      </div>
+      <div class="task-actions">
+        <button class="task-btn" onclick="check('t2','b','Отличное наблюдение! Именно сочетание современного корпоративного нарратива с региональной идентичностью характерно для компаний второго поколения российского бизнеса. Попытка найти баланс между глобальными стандартами и местными корнями.')">Проверить</button>
+        <button class="task-reset" onclick="reset('t2')">Сбросить</button>
+        <span class="task-tries" id="t2-tries"></span>
+      </div>
+      <div class="task-fb" id="t2-fb"></div>
+    </div>
+  </div>
+</section>
+
+<!-- HALL 3 -->
+<section id="hall3" class="hall sec">
+  <div class="hall-hero">
+    <img src="https://images.unsplash.com/photo-1476231682828-37e571bc172f?auto=format&fit=crop&w=1400&q=80" alt="Природа Якутии">
+    <div class="hall-hero-overlay">
+      <div>
+        <p class="hall-period">Экскурсия III · Человеческое измерение</p>
+        <h2 class="hall-title">Люди <em>недр</em></h2>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="guide r">
+      <p>Третий зал — о людях. Горнодобывающая промышленность — это прежде всего люди, работающие в условиях, которые большинство горожан не могут себе представить: −50° мороза, вахтовые посёлки в сотнях километров от города, тяжёлая техника в темноте якутской зимы.</p>
+      <p>Вахтовый метод в Якутии — не просто способ организации труда. Это особый уклад жизни, формирующий свою субкультуру, свои ценности, свои истории.</p>
+      <p>Мы также рассмотрим, как «Селигдар» работает с темами экологии и социальной ответственности — насколько декларируемые принципы КСО соответствуют реальной практике.</p>
+    </div>
+
+    <p class="photos-title r">▸ Природа Якутии и жизнь на Севере</p>
+    <div class="photo-grid r">
+      <div class="photo-card tall">
+        <img src="https://images.unsplash.com/photo-1508193638397-1c4234db14d8?auto=format&fit=crop&w=500&q=80" alt="Северное сияние">
+        <span class="photo-cap">Северное сияние над Якутией</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="photo-card" style="flex:1">
+          <img src="https://images.unsplash.com/photo-1520101244246-293f77ffc39e?auto=format&fit=crop&w=700&q=80" alt="Зимняя тайга">
+          <span class="photo-cap">Зимняя тайга — ландшафт вахтовых маршрутов</span>
+        </div>
+        <div class="photo-card" style="flex:1">
+          <img src="https://images.unsplash.com/photo-1530870110042-98b2cb110834?auto=format&fit=crop&w=700&q=80" alt="Горнорабочие">
+          <span class="photo-cap">Команда перед сменой</span>
+        </div>
+      </div>
+      <div class="photo-card tall">
+        <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&w=500&q=80" alt="Горный пейзаж">
+        <span class="photo-cap">Горные хребты Алданского нагорья</span>
+      </div>
+    </div>
+
+    <div class="subtopics r">
+      <div class="st"><span class="st-n">1</span><div><h4>Вахтовый метод: жизнь между двумя мирами</h4><p>Вахтовики проводят на производственных объектах от 2 до 6 недель. Это означает постоянное раздвоение: профессиональная жизнь — в условиях Севера, семейная — в «большом городе». Психологическая нагрузка огромна, но вознаграждение значительно выше среднего по региону.</p></div></div>
+      <div class="st"><span class="st-n">2</span><div><h4>Якутия: суровость как идентичность</h4><p>Республика Саха (Якутия) — крупнейший субъект РФ по площади, больше Аргентины. Верхоянск — «полюс холода» Северного полушария. Работа здесь требует специального оборудования и психологического настроя.</p></div></div>
+      <div class="st"><span class="st-n">3</span><div><h4>Корпоративная культура: как строить общность</h4><p>«Селигдар» активно инвестирует в корпоративную культуру: конкурсы «Лучший по профессии», социальные программы для семей, корпоративное издание (артбук). Это инструмент удержания кадров в условиях высокой текучести.</p></div></div>
+      <div class="st"><span class="st-n">4</span><div><h4>Экология и социальная ответственность</h4><p>Рекультивация нарушенных земель, управление отходами, программы поддержки коренных народов Севера — всё это входит в повестку компании. «Селигдар» публикует ESG-отчёты и реализует социальные инициативы в Якутии.</p></div></div>
+    </div>
+
+    <blockquote>«На вахте ты либо уходишь в работу с головой, либо сходишь с ума. Большинство выбирают первое. Потом приезжаешь домой — и не знаешь, чем заняться.»<cite>— Собирательный образ, составленный по материалам интервью горнорабочих</cite></blockquote>
+
+    <div class="task r">
+      <p class="task-label">Задание для посетителя</p>
+      <h4>Вахтовый метод: главный недостаток</h4>
+      <p>С точки зрения работника горнодобывающего предприятия, какой аспект вахтового метода является наиболее значимым <em>недостатком</em>?</p>
+      <div class="task-opts" id="t3-opts">
+        <div class="topt" onclick="pick('t3',this,'a')"><div class="topt-dot"></div><span>а) Более низкий уровень заработной платы по сравнению с городскими специальностями</span></div>
+        <div class="topt" onclick="pick('t3',this,'b')"><div class="topt-dot"></div><span>б) Длительная разлука с семьёй и социальная изоляция в период вахты</span></div>
+        <div class="topt" onclick="pick('t3',this,'c')"><div class="topt-dot"></div><span>в) Отсутствие карьерных перспектив внутри компании</span></div>
+      </div>
+      <div class="task-actions">
+        <button class="task-btn" onclick="check('t3','b','Верно. Социологические исследования показывают, что именно разлука с семьёй — главный источник стресса и причина текучести кадров, несмотря на высокую зарплату. Именно поэтому компании вкладывают средства в корпоративные социальные программы.')">Проверить</button>
+        <button class="task-reset" onclick="reset('t3')">Сбросить</button>
+        <span class="task-tries" id="t3-tries"></span>
+      </div>
+      <div class="task-fb" id="t3-fb"></div>
+    </div>
+  </div>
+</section>
+
+<section id="sources" class="sec" style="background:var(--bg2);border-top:1px solid var(--dim)">
+  <div class="wrap">
+    <p class="label">Список источников</p>
+    <h2 class="sec-title r">Источниковая <em>база</em></h2>
+    <div class="src-grid r">
+      <div class="src-group">
+        <h4>Зал I · Отрасль в 1990-е</h4>
+        <ol class="src-list">
+          <li>Росстат. Российский статистический ежегодник. 1993–2001. М.: Госкомстат России.</li>
+          <li>Указ Президента РФ №914 «О введении системы приватизационных чеков» от 14.08.1992.</li>
+          <li>Буланов В.С. Золотодобыча в России в 1990-е // Вопросы экономики. 2001. №3.</li>
+          <li>Горная промышленность России в переходный период / Под ред. А.А. Попова. М., 1998.</li>
+          <li>Виноградов В.В. Приватизация в России. М.: ИНИОН РАН, 1995.</li>
+        </ol>
+      </div>
+      <div class="src-group">
+        <h4>Зал II · История Селигдара</h4>
+        <ol class="src-list">
+          <li>ПАО «Селигдар». <a href="http://seligdar.ru/upload/investors/results-and-reports/Seligdar_2022_Annual_Report_rus/" target="_blank">Годовой отчёт за 2022 год</a>.</li>
+          <li>ПАО «Селигдар». <a href="https://seligdar.ru/investors/results-and-reports/" target="_blank">Архив годовых отчётов 2019–2022</a>.</li>
+          <li>ПАО «Селигдар». Корпоративный артбук (источник в печатном виде).</li>
+          <li>Проспект эмиссии акций ОАО «Селигдар». ММВБ, 2011.</li>
+          <li>Якутская горная компания: история и современность // Горная промышленность. 2018. №4.</li>
+        </ol>
+      </div>
+      <div class="src-group">
+        <h4>Зал III · Люди и труд</h4>
+        <ol class="src-list">
+          <li>Карачурина Л.Б. Вахтовая занятость в России // Вопросы статистики. 2019. №6.</li>
+          <li>ПАО «Селигдар». <a href="https://seligdar.ru/investors/results-and-reports/" target="_blank">Отчёт об устойчивом развитии. 2021</a>.</li>
+          <li>Попов А.А. Коренные народы Севера и горнодобывающий бизнес // Этнографическое обозрение. 2017. №2.</li>
+          <li>Агранат Г.А. Возможности и реалии освоения Севера. М.: Знание, 1992.</li>
+          <li>Трудовой кодекс РФ, гл. 47: Особенности труда вахтовым методом.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-l">Недра Новой России</div>
+  <div class="ft-r">Виртуальный музей · Горнодобывающая промышленность РФ 1991–2022<br>Учебный проект · Курс «История России» · НИУ ВШЭ</div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e,i) => {
+    if (e.isIntersecting) { setTimeout(() => e.target.classList.add('on'), i*60); obs.unobserve(e.target); }
+  });
+}, {threshold:.08});
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+
+const chosen={}, tries={};
+
+function pick(id, el, val) {
+  document.querySelectorAll(`#${id}-opts .topt`).forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  chosen[id] = val;
+  const fb = document.getElementById(`${id}-fb`);
+  fb.classList.remove('show');
+}
+
+function check(id, correct, correctMsg) {
+  const fb = document.getElementById(`${id}-fb`);
+  const triesEl = document.getElementById(`${id}-tries`);
+  if (!chosen[id]) {
+    fb.textContent = 'Пожалуйста, выберите один из вариантов.';
+    fb.className = 'task-fb err show';
+    return;
+  }
+  tries[id] = (tries[id]||0) + 1;
+  if (chosen[id] === correct) {
+    fb.innerHTML = '✓ &nbsp;' + correctMsg;
+    fb.className = 'task-fb ok show';
+    triesEl.textContent = '';
+  } else {
+    fb.textContent = '✗  Неверно. Подумайте ещё раз и попробуйте другой вариант ответа.';
+    fb.className = 'task-fb err show';
+    triesEl.textContent = `Попыток: ${tries[id]}`;
+  }
+}
+
+function reset(id) {
+  document.querySelectorAll(`#${id}-opts .topt`).forEach(o => o.classList.remove('sel'));
+  chosen[id]=null; tries[id]=0;
+  document.getElementById(`${id}-fb`).classList.remove('show');
+  document.getElementById(`${id}-tries`).textContent='';
+}
+
+let ticking=false;
+window.addEventListener('scroll',()=>{
+  if(!ticking){requestAnimationFrame(()=>{ const h=document.querySelector('.hero-img'); if(h) h.style.transform=`translateY(${scrollY*.25}px)`; ticking=false; }); ticking=true;}
+});
+</script>
+</body>
+</html>
