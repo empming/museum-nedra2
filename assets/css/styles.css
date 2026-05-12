@@ -427,11 +427,11 @@ h1, h2, h3 {
   position: relative;
   padding: 120px 0;
   background:
-    linear-gradient(180deg, rgba(14,15,18,.95) 0%, rgba(14,15,18,.78) 20%, rgba(14,15,18,.78) 80%, rgba(14,15,18,.95) 100%),
-    url('../img/artbook/page050.webp');
+    linear-gradient(180deg, rgba(14,15,18,.92) 0%, rgba(14,15,18,.52) 18%, rgba(14,15,18,.52) 82%, rgba(14,15,18,.92) 100%),
+    url('../img/mirny_halls.webp');
   background-attachment: fixed, fixed;
   background-size: cover, cover;
-  background-position: center, center;
+  background-position: center center, center center;
   border-top: 1px solid var(--line);
   overflow: hidden;
 }
