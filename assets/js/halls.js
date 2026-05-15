@@ -7,6 +7,9 @@ if (list) {
     const sec = document.createElement('article');
     sec.className = 'hall reveal';
     sec.id = 'hall-' + h.id;
+    if (h.accent) sec.style.setProperty('--hall-accent', h.accent);
+    if (h.accent_soft) sec.style.setProperty('--hall-accent-soft', h.accent_soft);
+    if (h.accent_glow) sec.style.setProperty('--hall-accent-glow', h.accent_glow);
     sec.innerHTML = `
       <header class="hall-marker">
         <div class="hall-roman">${h.roman}</div>
@@ -18,6 +21,7 @@ if (list) {
         <div class="hall-cards">
           ${h.cards.map(c => `
             <article class="hall-card">
+              ${c.image ? `<figure class="hall-card-fig"><img src="${c.image}" alt="${c.company}"${c.image_credit ? ` title="${c.image_credit}"` : ''}><figcaption>${c.image_credit || ''}</figcaption></figure>` : ''}
               <h4>${c.company}</h4>
               <p>${c.text}</p>
               <a class="src-link" href="${c.source_url}" target="_blank" rel="noopener">${c.source_label} →</a>

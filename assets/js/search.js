@@ -8,6 +8,34 @@ if (modal && input && list && btn) {
   let index = null;
   let focusIdx = 0;
 
+  // section-level записи: всегда видны и стоят первыми при пустом запросе
+  const SECTIONS = [
+    { section:'Раздел', anchor:'#prologue', title:'Пролог',
+      snippet:'Почему сквозной герой — Селигдар. Артель 1975 → ОАО 1996 → биржа 2010 → GOLD01 2023.',
+      hay:'пролог prologue селигдар сквозной герой артель история компании введение почему' },
+    { section:'Раздел', anchor:'#timeline', title:'Хронолента 1991–2022',
+      snippet:'22 ключевых события горнодобывающей отрасли РФ.',
+      hay:'хронолента timeline события хронология даты годы 1991 2022 история таймлайн' },
+    { section:'Раздел', anchor:'#map', title:'Карта месторождений',
+      snippet:'14 точек семи компаний — от Норильска до Хабаровского края.',
+      hay:'карта месторождений mines география локации точки пины места' },
+    { section:'Раздел', anchor:'#charts', title:'Цифры эпохи',
+      snippet:'Графики: цена золота, добыча РФ, курс рубля, доля Селигдара, капитализация.',
+      hay:'цифры графики charts статистика цена золота добыча курс рубля капитализация эпохи' },
+    { section:'Раздел', anchor:'#halls', title:'Четыре зала',
+      snippet:'I Передел собственности · II IPO · III География · IV Экология.',
+      hay:'залы halls четыре зала передел собственности приватизация ipo биржа география регионы экология ксо' },
+    { section:'Раздел', anchor:'#bond', title:'Облигация GOLD01',
+      snippet:'Первая в РФ облигация в граммах золота. Калькулятор доходности.',
+      hay:'облигация bond gold01 золото граммы калькулятор селигдар выпуск инструмент финансовый эпилог' },
+    { section:'Раздел', anchor:'#gallery', title:'Артбук Селигдара',
+      snippet:'247 фото из юбилейного издания 1975–2015.',
+      hay:'артбук gallery галерея фото селигдар золотая поступь юбилей издание' },
+    { section:'Раздел', anchor:'#sources', title:'Источники и отчётность',
+      snippet:'30+ внешних ссылок: годовые отчёты, ЦБ, LBMA, USGS, законы.',
+      hay:'источники sources ссылки документы законы лбма цб usgs отчёты отчётность право' },
+  ];
+
   const buildIndex = async () => {
     const [timeline, halls, mines, gallery] = await Promise.all([
       fetch('data/timeline.json').then(r => r.json()).catch(() => []),
@@ -15,7 +43,7 @@ if (modal && input && list && btn) {
       fetch('data/mines.json').then(r => r.json()).catch(() => []),
       fetch('data/gallery.json').then(r => r.json()).catch(() => []),
     ]);
-    const out = [];
+    const out = [...SECTIONS];
     timeline.forEach(t => out.push({
       section: 'Хронолента',
       anchor: '#timeline',
@@ -72,11 +100,19 @@ if (modal && input && list && btn) {
     `).join('');
   };
 
+  // стемминг: режем токен длиннее 4 символов до первых 4 → грубо ловит падежи
+  const stem = w => w.length > 4 ? w.slice(0, 4) : w;
+
   const search = q => {
     if (!index) return [];
     const needle = q.trim().toLowerCase();
-    if (!needle) return index.slice(0, 12);
-    return index.filter(it => it.hay.includes(needle));
+    if (!needle) return SECTIONS.slice(); // пустой запрос → 8 разделов
+    const tokens = needle.split(/\s+/).filter(Boolean).map(stem);
+    if (!tokens.length) return SECTIONS.slice();
+    return index.filter(it => {
+      const hay = ' ' + it.hay + ' ';
+      return tokens.every(t => hay.includes(t));
+    });
   };
 
   let lastResults = [];

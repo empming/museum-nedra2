@@ -21,14 +21,14 @@
 
 <nav class="toc" aria-label="Содержание">
   <ol>
-    <li data-target="prologue"><a href="#prologue" aria-label="Пролог"></a><span class="toc-label">Пролог</span></li>
-    <li data-target="timeline"><a href="#timeline" aria-label="Хронолента"></a><span class="toc-label">Хронолента</span></li>
-    <li data-target="map"><a href="#map" aria-label="Карта"></a><span class="toc-label">Карта</span></li>
-    <li data-target="charts"><a href="#charts" aria-label="Графики"></a><span class="toc-label">Графики</span></li>
-    <li data-target="halls"><a href="#halls" aria-label="Залы"></a><span class="toc-label">Залы</span></li>
-    <li data-target="bond"><a href="#bond" aria-label="Облигация"></a><span class="toc-label">Облигация</span></li>
-    <li data-target="gallery"><a href="#gallery" aria-label="Артбук"></a><span class="toc-label">Артбук</span></li>
-    <li data-target="sources"><a href="#sources" aria-label="Источники"></a><span class="toc-label">Источники</span></li>
+    <li data-target="prologue"><a href="#prologue"><span class="toc-dot"></span><span class="toc-text">Пролог</span></a></li>
+    <li data-target="timeline"><a href="#timeline"><span class="toc-dot"></span><span class="toc-text">Хронолента</span></a></li>
+    <li data-target="map"><a href="#map"><span class="toc-dot"></span><span class="toc-text">Карта</span></a></li>
+    <li data-target="charts"><a href="#charts"><span class="toc-dot"></span><span class="toc-text">Графики</span></a></li>
+    <li data-target="halls"><a href="#halls"><span class="toc-dot"></span><span class="toc-text">Залы</span></a></li>
+    <li data-target="bond"><a href="#bond"><span class="toc-dot"></span><span class="toc-text">Облигация</span></a></li>
+    <li data-target="gallery"><a href="#gallery"><span class="toc-dot"></span><span class="toc-text">Артбук</span></a></li>
+    <li data-target="sources"><a href="#sources"><span class="toc-dot"></span><span class="toc-text">Источники</span></a></li>
   </ol>
 </nav>
 
@@ -165,6 +165,21 @@
           <h3>Селигдар: добыча золота, кг</h3>
           <canvas id="chart-seligdar"></canvas>
           <p class="chart-source">Источник: <a href="https://seligdar.ru/investors/reports/" rel="noopener">годовые отчёты Селигдара</a></p>
+        </div>
+        <div class="chart-card">
+          <h3>Курс рубля × цена золота</h3>
+          <canvas id="chart-gold-rub"></canvas>
+          <p class="chart-source">Две оси: цена золота (USD/oz) и USD/RUB. Девальвация × мировая цена = маржа экспортёров. Источники: <a href="https://www.lbma.org.uk/prices-and-data/precious-metal-prices" rel="noopener">LBMA</a> и <a href="https://cbr.ru/currency_base/dynamics/" rel="noopener">ЦБ РФ</a></p>
+        </div>
+        <div class="chart-card">
+          <h3>Доля Селигдара в добыче РФ, %</h3>
+          <canvas id="chart-seligdar-share"></canvas>
+          <p class="chart-source">Вычислено: добыча Селигдара / добыча РФ × 100 %. Сквозной герой — это 2 % отрасли, проходящий через все эпохи.</p>
+        </div>
+        <div class="chart-card">
+          <h3>Капитализация мейджоров, млрд ₽</h3>
+          <canvas id="chart-caps"></canvas>
+          <p class="chart-source">Полюс / АЛРОСА / Селигдар на конец года. Источник: <a href="https://www.moex.com/" rel="noopener">MOEX</a> + годовые отчёты. Санкции 2022 = −50…−60 % от пика 2020.</p>
         </div>
       </div>
     </div>
