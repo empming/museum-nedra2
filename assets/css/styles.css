@@ -278,28 +278,28 @@ h1, h2, h3 {
   scroll-snap-type: x mandatory;
   padding: 24px 4px 30px;
   overflow-y: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(199,160,80,.6) transparent;
+  scrollbar-width: auto;
+  scrollbar-color: var(--gold) rgba(255,255,255,.05);
 }
 .timeline-track::-webkit-scrollbar {
-  height: 6px;
+  height: 12px;
 }
 .timeline-track::-webkit-scrollbar-track {
-  background: rgba(255,255,255,.04);
+  background: rgba(255,255,255,.05);
   border-radius: 999px;
-  margin: 0 16px;
+  margin: 0 20px;
 }
 .timeline-track::-webkit-scrollbar-thumb {
-  background: rgba(199,160,80,.55);
+  background: var(--gold);
   border-radius: 999px;
-  min-width: 60px;
+  min-width: 100px;
   transition: background .25s var(--ease-out-soft);
 }
 .timeline-track::-webkit-scrollbar-thumb:hover {
   background: var(--gold-hi);
 }
 .timeline-track::-webkit-scrollbar-thumb:active {
-  background: var(--gold);
+  background: var(--gold-hi);
 }
 .timeline-card {
   flex: 0 0 360px;
@@ -937,16 +937,38 @@ h1, h2, h3 {
   margin: 0; padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0;
 }
 .side-nav-list li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.side-nav-list .link {
+  position: relative;
   display: block;
+  margin: 4px 0;
+  width: 2px;
+  height: 14px;
+  background: rgba(199,160,80,.18);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.side-nav-list .link-fill {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(180deg, var(--gold-hi), var(--gold));
+  box-shadow: 0 0 6px rgba(224,190,106,.5);
+  border-radius: inherit;
+  transition: height .2s var(--ease-out-soft);
 }
 .side-nav-list a {
   position: relative;
   display: block;
   padding: 9px 16px;
-  min-width: 120px;
+  width: 120px;
   border-radius: 999px;
   border: 1px solid transparent;
   background:
