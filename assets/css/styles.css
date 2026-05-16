@@ -109,15 +109,6 @@ h1, h2, h3 {
   transition: color .15s, border-color .15s, background .15s;
 }
 .nav-search:hover { color: var(--ink); border-color: var(--gold); background: rgba(199,160,80,.06); }
-.nav-search kbd {
-  font-family: var(--sans);
-  font-size: 11px;
-  padding: 2px 6px;
-  border: 1px solid var(--line-hi);
-  border-radius: 4px;
-  color: var(--ink-mute);
-  background: rgba(0,0,0,.2);
-}
 .brand {
   display: flex;
   align-items: center;
@@ -794,11 +785,12 @@ h1, h2, h3 {
   font-size: 12px;
   letter-spacing: .08em;
   text-transform: uppercase;
-  color: var(--ink-mute);
+  color: var(--ink);
+  opacity: .82;
 }
 .bond-calc input {
-  background: var(--bg);
-  border: 1px solid var(--line);
+  background: rgba(10,11,15,.92);
+  border: 1px solid rgba(199,160,80,.28);
   color: var(--ink);
   padding: 11px 14px;
   font-family: var(--sans);
@@ -809,14 +801,15 @@ h1, h2, h3 {
 .bond-out {
   margin: 24px 0 12px;
   padding: 18px;
-  background: var(--bg);
+  background: rgba(10,11,15,.78);
+  border: 1px solid rgba(199,160,80,.18);
   border-radius: 4px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 .bond-out div { display: flex; justify-content: space-between; align-items: baseline; }
-.bond-out span { color: var(--ink-mute); font-size: 13px; }
+.bond-out span { color: var(--ink); opacity: .72; font-size: 13px; }
 .bond-out b { font-family: var(--serif); font-size: 22px; color: var(--ink); font-weight: 500; }
 .bond-total { padding-top: 10px; border-top: 1px solid var(--line); }
 .bond-total b { color: var(--gold); font-size: 28px; }
@@ -911,6 +904,38 @@ h1, h2, h3 {
     animation-timeline: scroll(root);
   }
   @keyframes scroll-prog { to { transform: scaleX(1); } }
+}
+
+/* ===== left vertical scroll progress bar (ai-2027 style) ===== */
+.scroll-progress-v {
+  position: fixed;
+  left: 14px; top: 88px; bottom: 88px;
+  width: 2px;
+  background: rgba(199,160,80,.12);
+  border-radius: 2px;
+  z-index: 900;
+  pointer-events: none;
+}
+.scroll-progress-v span {
+  display: block;
+  width: 100%;
+  height: 0;
+  background: linear-gradient(180deg, var(--gold-hi), var(--gold) 60%, var(--copper));
+  box-shadow: 0 0 12px rgba(224,190,106,.5);
+  border-radius: inherit;
+  transform-origin: 0 0;
+}
+@supports (animation-timeline: scroll()) {
+  .scroll-progress-v span {
+    height: 100%;
+    transform: scaleY(0);
+    animation: scroll-prog-v linear;
+    animation-timeline: scroll(root);
+  }
+  @keyframes scroll-prog-v { to { transform: scaleY(1); } }
+}
+@media (max-width: 720px) {
+  .scroll-progress-v { display: none; }
 }
 
 /* ===== right mini-TOC — unified glass pill ===== */

@@ -21,7 +21,9 @@
         "company": "АЛРОСА",
         "text": "1992: ПНО «Якуталмаз» преобразуется в АК «Алмазы России – Саха». Уникальная трёхчастная схема собственности (РФ + Республика Саха + трудовой коллектив) удерживает компанию в гос. периметре до IPO 2013 г.",
         "source_url": "https://www.alrosa.ru/about/history/",
-        "source_label": "АЛРОСА: история"
+        "source_label": "АЛРОСА: история",
+        "image": "assets/img/halls/alrosa-mirny.webp",
+        "image_credit": "Mirny, Sakha Republic. Wikimedia Commons (CC-BY-SA)"
       },
       {
         "company": "Селигдар",
@@ -33,7 +35,9 @@
         "company": "Полиметалл / Полюс",
         "text": "Конец 1990-х: золотодобывающие активы консолидируются вокруг группы «ИСТ» (Полиметалл) и «Норникеля» (Полюс). Фундамент будущих IPO закладывается ещё в десятилетие приватизации.",
         "source_url": "https://www.polymetalinternational.com/en/about-us/our-history/",
-        "source_label": "Polymetal: history"
+        "source_label": "Polymetal: history",
+        "image": "assets/img/halls/talnakh-deposit.webp",
+        "image_credit": "Талнахское месторождение. Wikimedia Commons (CC-BY-SA)"
       }
     ]
   },
@@ -69,7 +73,9 @@
         "company": "АЛРОСА",
         "text": "28 октября 2013: IPO на Московской бирже. Государство и Якутия продают по 7 % акций, привлечено 41,3 млрд руб. Впервые в истории алмазная монополия становится публичной.",
         "source_url": "https://www.alrosa.ru/investors/",
-        "source_label": "АЛРОСА: инвесторам"
+        "source_label": "АЛРОСА: инвесторам",
+        "image": "assets/img/halls/moex.webp",
+        "image_credit": "Здание Московской биржи. Wikimedia Commons (CC-BY-SA)"
       }
     ]
   },
@@ -87,13 +93,17 @@
         "company": "Якутия: Селигдар + АЛРОСА",
         "text": "Алданский улус (Селигдар, золото) и Мирнинский район (АЛРОСА, алмазы) — две доминанты южной и западной Якутии. На двоих обеспечивают до 40 % бюджета республики.",
         "source_url": "https://www.sakha.gov.ru/economy",
-        "source_label": "Правительство Якутии"
+        "source_label": "Правительство Якутии",
+        "image": "assets/img/halls/aldan-district.webp",
+        "image_credit": "Алданский золотоносный район, спутниковый снимок. Wikimedia Commons (CC-BY-SA)"
       },
       {
         "company": "Магадан и Чукотка: Полюс, Полиметалл, Highland Gold",
         "text": "Наталка (Полюс), Дукат (Полиметалл), Купол (с 2022 — Highland Gold) образуют северо-восточный золото-серебряный пояс. После ухода Kinross в 2022 г. весь актив переходит в российские руки.",
         "source_url": "https://www.kommersant.ru/doc/5400064",
-        "source_label": "Ъ: продажа Купола"
+        "source_label": "Ъ: продажа Купола",
+        "image": "assets/img/halls/magadan-gold.webp",
+        "image_credit": "Золотодобывающий полигон, Магаданская область. Wikimedia Commons (CC-BY-SA)"
       },
       {
         "company": "Норильск: моногород на сульфидах",

@@ -35,13 +35,15 @@ if (tocItems.length) {
 const supportsScrollTimeline = CSS && CSS.supports && CSS.supports('animation-timeline', 'scroll()');
 if (!supportsScrollTimeline) {
   const bar = document.querySelector('.scroll-progress');
-  if (bar) {
+  const barV = document.querySelector('.scroll-progress-v span');
+  if (bar || barV) {
     let ticking = false;
     const update = () => {
       const h = document.documentElement;
       const max = h.scrollHeight - h.clientHeight;
       const pct = max > 0 ? h.scrollTop / max : 0;
-      bar.style.transform = `scaleX(${pct})`;
+      if (bar) bar.style.transform = `scaleX(${pct})`;
+      if (barV) barV.style.height = (pct * 100) + '%';
       ticking = false;
     };
     window.addEventListener('scroll', () => {
