@@ -1,3 +1,5 @@
+import { bus } from './bus.js';
+
 const el = document.getElementById('leaflet-map');
 if (el && window.L) {
   const mines = await fetch('data/mines.json').then(r => r.json());
@@ -69,15 +71,49 @@ if (el && window.L) {
 
   // ── маркеры с группировкой по компании ──────────────────────────────────
   const groups = {};
+  const allMarkers = []; // {marker, mine, key}
+  let lastClickedKey = null;
+  let lastClickedMine = null;
   mines.forEach(m => {
     const k = companyKey(m.company);
     const marker = L.marker([m.lat, m.lon], {
       icon: makeIcon(palette[k]?.color || '#C7A050'),
       title: m.name
     });
-    marker.on('click', () => renderCard(m));
+    marker.on('click', () => {
+      renderCard(m);
+      // toggle cross-filter: повторный клик по пину той же компании → clear
+      if (lastClickedKey === k && lastClickedMine === m.id) {
+        lastClickedKey = null;
+        lastClickedMine = null;
+        bus.dispatchEvent(new Event('clear'));
+      } else {
+        lastClickedKey = k;
+        lastClickedMine = m.id;
+        bus.dispatchEvent(new CustomEvent('mine:select', {
+          detail: { company: k, years: m.years || [], mineId: m.id }
+        }));
+      }
+    });
     marker.bindTooltip(m.name, { direction: 'top', offset: [0, -22] });
     (groups[k] = groups[k] || []).push(marker);
+    allMarkers.push({ marker, mine: m, key: k });
+  });
+
+  // ── флэш пина при клике по году в timeline ────────────────────────────────
+  bus.addEventListener('year:select', ev => {
+    const { year, company } = ev.detail || {};
+    allMarkers.forEach(({ marker, mine, key }) => {
+      const yearMatch = (mine.years || []).includes(year);
+      const companyMatch = company ? key === company : true;
+      if (yearMatch && companyMatch) {
+        const elPin = marker.getElement();
+        if (elPin) {
+          elPin.classList.add('is-flash');
+          setTimeout(() => elPin.classList.remove('is-flash'), 1400);
+        }
+      }
+    });
   });
 
   const activeKeys = new Set(Object.keys(groups));
