@@ -931,8 +931,8 @@ h1, h2, h3 {
   top: 50%;
   transform: translateY(-50%);
   z-index: 900;
-  padding: 18px 22px 18px 20px;
-  border-radius: 22px;
+  padding: 22px 24px;
+  border-radius: 24px;
   border: 1px solid transparent;
   background:
     rgba(22,24,30,.55) padding-box,
@@ -949,7 +949,7 @@ h1, h2, h3 {
   margin: 0; padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 20px;
 }
 .side-nav-list li {
   display: block;
@@ -957,26 +957,27 @@ h1, h2, h3 {
 .side-nav-list a {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   color: var(--ink-mute);
   font-family: var(--sans);
   font-size: 11px;
   letter-spacing: .16em;
   text-transform: uppercase;
   white-space: nowrap;
+  text-decoration: none;
   transition: color .25s var(--ease-out-soft), transform .35s var(--ease-out-soft);
 }
 .side-nav-list .dot {
   flex: 0 0 auto;
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   border: 1.5px solid rgba(199,160,80,.4);
   background: transparent;
-  transition: background .25s var(--ease-out-soft),
-              border-color .25s var(--ease-out-soft),
-              box-shadow .25s var(--ease-out-soft),
-              transform .25s var(--ease-out-soft);
+  transition: background .3s var(--ease-out-soft),
+              border-color .3s var(--ease-out-soft),
+              box-shadow .3s var(--ease-out-soft),
+              transform .3s var(--ease-out-soft);
 }
 .side-nav-list .label {
   display: inline-block;
@@ -986,7 +987,7 @@ h1, h2, h3 {
   transform: translateX(-2px);
 }
 .side-nav-list a:hover .dot {
-  border-color: rgba(224,190,106,.7);
+  border-color: rgba(224,190,106,.75);
 }
 .side-nav-list li.is-passed a {
   color: var(--gold);
@@ -1001,8 +1002,8 @@ h1, h2, h3 {
 .side-nav-list li.is-current .dot {
   background: var(--gold-hi);
   border-color: var(--gold-hi);
-  transform: scale(1.25);
-  box-shadow: 0 0 10px rgba(224,190,106,.6), 0 0 18px rgba(224,190,106,.3);
+  transform: scale(1.35);
+  box-shadow: 0 0 12px rgba(224,190,106,.65), 0 0 22px rgba(224,190,106,.35);
 }
 @media (max-width: 959px) {
   .side-nav { display: none; }
