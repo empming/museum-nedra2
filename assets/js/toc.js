@@ -1,4 +1,4 @@
-// ── правая боковая навигация: капсулы + связующие линии заполняются по мере скролла ──
+// ── правая боковая навигация: точки заполняются по мере скролла ──
 const navItems = Array.from(document.querySelectorAll('.side-nav-list li[data-target]'));
 const sections = navItems
   .map(li => ({ li, section: document.getElementById(li.dataset.target) }))
@@ -8,47 +8,28 @@ const updateNav = () => {
   const vh = window.innerHeight;
   const docH = document.documentElement.scrollHeight;
   const maxScroll = Math.max(0, docH - vh);
-  // readLine растёт от 0 в самом верху страницы до docH в самом низу — гарантия,
-  // что последняя капсула достигнет 100 % именно тогда, когда скролл упирается в дно.
   const scrollFrac = maxScroll > 0 ? window.scrollY / maxScroll : 1;
   const readLine = scrollFrac * docH;
 
-  let currentIdx = -1;
   const pills = sections.map(({ li, section }) => {
     const top = section.offsetTop;
     const range = section.offsetHeight;
     let p = range > 0 ? ((readLine - top) / range) * 100 : 0;
     p = Math.max(0, Math.min(100, p));
-    const fillEl = li.querySelector('.fill');
-    if (fillEl) fillEl.style.width = p.toFixed(1) + '%';
     li.classList.toggle('is-passed', p >= 100);
-    return { li, section, top, bottom: top + range, p };
+    return { li, p };
   });
 
-  // подсветка «текущей»: первой, чья заливка ещё не достигла 100 %
+  // активная — первая, чьё заполнение в процессе (0 < p < 100); если все пройдены — последняя
+  let currentIdx = -1;
   for (let i = 0; i < pills.length; i++) {
-    if (pills[i].p < 100 && pills[i].p > 0) { currentIdx = i; break; }
+    if (pills[i].p > 0 && pills[i].p < 100) { currentIdx = i; break; }
     if (pills[i].p === 0) break;
   }
-  navItems.forEach((li, i) => li.classList.toggle('is-current', i === currentIdx));
-
-  // линии-коннекторы между капсулами
-  for (let i = 0; i < pills.length - 1; i++) {
-    const linkFill = pills[i].li.querySelector('.link-fill');
-    if (!linkFill) continue;
-    const gapStart = pills[i].bottom;
-    const gapEnd = pills[i + 1].top;
-    let lp;
-    if (gapEnd <= gapStart) {
-      // секции вплотную — коннектор заполняется одновременно с тем, что
-      // следующая капсула начала наливаться
-      lp = pills[i + 1].p > 0 ? 100 : 0;
-    } else {
-      lp = ((readLine - gapStart) / (gapEnd - gapStart)) * 100;
-    }
-    lp = Math.max(0, Math.min(100, lp));
-    linkFill.style.height = lp.toFixed(1) + '%';
+  if (currentIdx === -1 && pills.length && pills[pills.length - 1].p >= 100) {
+    currentIdx = pills.length - 1;
   }
+  navItems.forEach((li, i) => li.classList.toggle('is-current', i === currentIdx));
 };
 
 if (sections.length) {

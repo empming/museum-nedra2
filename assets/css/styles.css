@@ -924,96 +924,85 @@ h1, h2, h3 {
   @keyframes scroll-prog { to { transform: scaleX(1); } }
 }
 
-/* ===== right side nav: liquid-glass chapter pills that fill as you scroll ===== */
+/* ===== right side nav: liquid-glass panel with dotted chapter list ===== */
 .side-nav {
   position: fixed;
   right: 20px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 900;
+  padding: 18px 22px 18px 20px;
+  border-radius: 22px;
+  border: 1px solid transparent;
+  background:
+    rgba(22,24,30,.55) padding-box,
+    linear-gradient(160deg, rgba(255,255,255,.18), rgba(255,255,255,.02) 50%, rgba(255,255,255,.14)) border-box;
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 -1px 0 rgba(0,0,0,.3),
+    0 16px 40px -18px rgba(0,0,0,.6);
 }
 .side-nav-list {
   list-style: none;
   margin: 0; padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 14px;
 }
 .side-nav-list li {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.side-nav-list .link {
-  position: relative;
   display: block;
-  margin: 4px 0;
-  width: 2px;
-  height: 14px;
-  background: rgba(199,160,80,.18);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.side-nav-list .link-fill {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 0%;
-  background: linear-gradient(180deg, var(--gold-hi), var(--gold));
-  box-shadow: 0 0 6px rgba(224,190,106,.5);
-  border-radius: inherit;
-  transition: height .2s var(--ease-out-soft);
 }
 .side-nav-list a {
-  position: relative;
-  display: block;
-  padding: 9px 16px;
-  width: 120px;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  background:
-    rgba(22,24,30,.45) padding-box,
-    linear-gradient(160deg, rgba(255,255,255,.18), rgba(255,255,255,.02) 50%, rgba(255,255,255,.14)) border-box;
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.16),
-    inset 0 -1px 0 rgba(0,0,0,.3),
-    0 8px 22px -10px rgba(0,0,0,.5);
+  display: flex;
+  align-items: center;
+  gap: 12px;
   color: var(--ink-mute);
   font-family: var(--sans);
-  font-size: 10px;
-  letter-spacing: .18em;
+  font-size: 11px;
+  letter-spacing: .16em;
   text-transform: uppercase;
-  text-align: center;
   white-space: nowrap;
-  overflow: hidden;
-  transition: color .25s, transform .35s var(--ease-out-soft);
+  transition: color .25s var(--ease-out-soft), transform .35s var(--ease-out-soft);
 }
-.side-nav-list .fill {
-  position: absolute;
-  top: 0; left: 0; bottom: 0;
-  width: var(--p, 0%);
-  background: linear-gradient(90deg, rgba(199,160,80,.42), rgba(224,190,106,.28));
-  box-shadow: inset 0 0 16px rgba(224,190,106,.25);
-  border-radius: inherit;
-  transition: width .25s var(--ease-out-soft);
-  pointer-events: none;
+.side-nav-list .dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(199,160,80,.4);
+  background: transparent;
+  transition: background .25s var(--ease-out-soft),
+              border-color .25s var(--ease-out-soft),
+              box-shadow .25s var(--ease-out-soft),
+              transform .25s var(--ease-out-soft);
 }
 .side-nav-list .label {
-  position: relative;
-  z-index: 1;
+  display: inline-block;
 }
 .side-nav-list a:hover {
   color: var(--ink);
-  transform: translateX(-3px);
+  transform: translateX(-2px);
 }
-.side-nav-list li.is-current a {
-  color: var(--gold-hi);
-  border-color: rgba(224,190,106,.35);
+.side-nav-list a:hover .dot {
+  border-color: rgba(224,190,106,.7);
 }
 .side-nav-list li.is-passed a {
   color: var(--gold);
+}
+.side-nav-list li.is-passed .dot {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.side-nav-list li.is-current a {
+  color: var(--gold-hi);
+}
+.side-nav-list li.is-current .dot {
+  background: var(--gold-hi);
+  border-color: var(--gold-hi);
+  transform: scale(1.25);
+  box-shadow: 0 0 10px rgba(224,190,106,.6), 0 0 18px rgba(224,190,106,.3);
 }
 @media (max-width: 959px) {
   .side-nav { display: none; }

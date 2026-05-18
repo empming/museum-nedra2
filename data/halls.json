@@ -29,7 +29,9 @@
         "company": "Селигдар",
         "text": "1996: старательская артель «Селигдар» (1975 г., Алданский улус) преобразуется в ОАО. Один из немногих кейсов выживания позднесоветской артельной формы в виде публичного акционерного общества.",
         "source_url": "https://seligdar.ru/about/history/",
-        "source_label": "Селигдар: история"
+        "source_label": "Селигдар: история",
+        "image": "assets/img/artbook/page020.webp",
+        "image_credit": "Фотохроника артели 1970-х. Артбук «Селигдар. 40 лет», 2015"
       },
       {
         "company": "Полиметалл / Полюс",
@@ -55,19 +57,25 @@
         "company": "Полюс Золото",
         "text": "Март 2006: выделен из «Норникеля». Капитализация при размещении — ~$8 млрд. Базовый актив — Олимпиадинское месторождение в Красноярском крае.",
         "source_url": "https://polyus.com/ru/about/history/",
-        "source_label": "Полюс: история"
+        "source_label": "Полюс: история",
+        "image": "assets/img/halls/magadan-gold.webp",
+        "image_credit": "Золотодобывающий полигон. Wikimedia Commons (CC-BY-SA)"
       },
       {
         "company": "Полиметалл",
         "text": "30 ноября 2007: первичное размещение на LSE и РТС. Привлечено ~$605 млн. Активы — Дукат, Лунное, Хаканджа; на следующие 15 лет компания — крупнейший в РФ производитель серебра.",
         "source_url": "https://www.polymetalinternational.com/en/investors-and-media/",
-        "source_label": "Polymetal IR"
+        "source_label": "Polymetal IR",
+        "image": "assets/img/artbook/page038.webp",
+        "image_credit": "Технологическая схема обогащения. Артбук «Селигдар. 40 лет», 2015"
       },
       {
         "company": "Селигдар",
         "text": "2010: акции ПАО «Селигдар» (тикер SELG) начинают торговаться на ММВБ. К 2014 г. компания утверждает Стратегию устойчивого развития 2014–2020 и параллельно развивает оловянное направление.",
         "source_url": "https://www.moex.com/ru/issue.aspx?board=TQBR&code=SELG",
-        "source_label": "MOEX: SELG"
+        "source_label": "MOEX: SELG",
+        "image": "assets/img/halls/moex.webp",
+        "image_credit": "Здание Московской биржи. Wikimedia Commons (CC-BY-SA)"
       },
       {
         "company": "АЛРОСА",
@@ -117,7 +125,9 @@
         "company": "Урал: ЮГК",
         "text": "«Южуралзолото» (ЮГК) разрабатывает Светлинское и Кочкарское месторождения в Челябинской области. В отличие от северных кейсов — компактная городская инфраструктура и доступ к ж/д.",
         "source_url": "https://www.ugcrussia.com/",
-        "source_label": "ЮГК"
+        "source_label": "ЮГК",
+        "image": "assets/img/artbook/page052.webp",
+        "image_credit": "Карьерный автотранспорт и горная техника. Артбук «Селигдар. 40 лет», 2015"
       }
     ]
   },
@@ -151,13 +161,17 @@
         "company": "Селигдар: артбук как самоописание",
         "text": "Юбилейный артбук 2015 г. «Золотая поступь Селигдара» (83 стр., 247 фотографий) — образцовый пример корпоративного нарратива: история артели, портреты бригадиров, ландшафты Алдана, KPI стратегии 2014–2020. Музей использует его как первичный визуальный источник.",
         "source_url": "https://seligdar.ru/about/",
-        "source_label": "Селигдар: о компании"
+        "source_label": "Селигдар: о компании",
+        "image": "assets/img/artbook/p001_1.webp",
+        "image_credit": "Обложка артбука «Селигдар. 40 лет», 2015"
       },
       {
         "company": "Полиметалл: ESG до санкций",
         "text": "Polymetal первым из российских майнеров публикует TCFD-отчёт (2019), привязывает бонусы топ-менеджмента к сокращению выбросов. Парадокс 2022 г.: лидер по ESG среди российских горнодобывающих — первый в санкционных рисках из-за листинга в Лондоне.",
         "source_url": "https://www.polymetalinternational.com/en/sustainability/",
-        "source_label": "Polymetal: sustainability"
+        "source_label": "Polymetal: sustainability",
+        "image": "assets/img/artbook/page074.webp",
+        "image_credit": "Раздел «Экология»: рекультивация и мониторинг. Артбук «Селигдар. 40 лет», 2015"
       }
     ]
   }
