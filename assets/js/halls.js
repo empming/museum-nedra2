@@ -1,6 +1,6 @@
 const list = document.getElementById('halls-list');
 if (list) {
-  const halls = await fetch('data/halls.json?v=4').then(r => r.json());
+  const halls = await fetch('data/halls.json?v=5').then(r => r.json());
   const frag = document.createDocumentFragment();
 
   halls.forEach(h => {

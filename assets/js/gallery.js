@@ -1,6 +1,6 @@
 const grid = document.getElementById('gallery-grid');
 if (grid) {
-  const items = await fetch('data/gallery.json?v=4').then(r => r.json());
+  const items = await fetch('data/gallery.json?v=5').then(r => r.json());
   const frag = document.createDocumentFragment();
 
   items.forEach(it => {

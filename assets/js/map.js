@@ -2,7 +2,7 @@ import { bus } from './bus.js';
 
 const el = document.getElementById('leaflet-map');
 if (el && window.L) {
-  const mines = await fetch('data/mines.json?v=4').then(r => r.json());
+  const mines = await fetch('data/mines.json?v=5').then(r => r.json());
 
   // ── палитра по короткому ключу компании ────────────────────────────────
   const companyKey = c => {
